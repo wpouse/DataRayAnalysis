@@ -1,6 +1,6 @@
 function [max_intensity, max_position, FWHM_x, FWHM_y, beam_image] = beam_parser(image_file)
 %Import DataRay 16bit tiff file and extract parameters of beam
-beam_image = imread(image_file);
+beam_image = double(imread(image_file)); %read image then convert to double in order to allow for decimals/values < 1
 
 max_intensity = max(max(beam_image));
 max_position = zeros(1,2);

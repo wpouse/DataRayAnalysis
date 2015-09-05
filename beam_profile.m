@@ -30,9 +30,18 @@ classdef beam_profile
                 total_intensity = sum(sum(obj.beam_image));
                 obj.power_intensity_ratio = obj.pump_power/total_intensity;
                 
-                obj.fluence_matrix = obj.beam_image * (obj.power_intensity_ratio / obj.rep_rate);
+                obj.fluence_matrix = bsxfun(@times, obj.beam_image, (obj.power_intensity_ratio / obj.rep_rate));
                 
             end
+        end
+        function fluence = fluence_at_probe(obj, probe_beam)
+            %Input corresponding probe beam for scan and before/after to
+            %get fluence of pump at probe center
+            if obj.probe == 1
+                error('Must be corresponding pump scan')
+            end
+            
+            fluence = obj.fluence_matrix(probe_beam.max_position(1), probe_beam.max_position(2)) * 10^8/(obj.pixel_size^2) ; %multiply by 10^8 anddivide by pixel size to get into energy/cm^2
         end
     end
 end
