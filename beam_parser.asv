@@ -1,0 +1,23 @@
+function [max_intensity, max_position, FWHM] = beam_parser(image_file)
+%Import DataRay tiff file and extract parameters of beam
+beam_image = imread(image_file);
+
+max_intensity = max(max(beam_image));
+max_position = zeros(1,2);
+%max_position(1) = row max_pos(2) = column
+[max_position(1), max_position(2)] = find(beam_image==max_intensity);
+
+half_max = max_intensity/2;
+
+%Extracting values of row and column containing max (ie center)
+horiz_lineout = beam_image(max_position(1));
+vertical_lineout = beam_image(max_position(2));
+
+%For both horizontal and vertical lineouts, first find indices of values less than half max
+%Then there should be two values closest to center, split into those less
+%than center index, and those higher than center index. Max of indices less
+%than center index is closest on that side, and min of indices bigger than
+%center index is cl
+horiz_indices = find(horiz_lineout<half_max);
+horiz_half_max_pos1 = max(horiz_indices(horiz_indices < max_position(1)));
+horiz_half_max_pos2 = min(horiz_indices(horiz_indices > max_position(1)));
