@@ -26,19 +26,19 @@ vertical_lineout = beam_image(:,max_position(2));
 %happening.
 
 horiz_indices = find(horiz_lineout<half_max);
-horiz_half_max_pos1 = max(horiz_indices(horiz_indices < max_position(1)));
-horiz_half_max_pos2 = min(horiz_indices(horiz_indices > max_position(1)));
+horiz_half_max_pos1 = max(horiz_indices(horiz_indices < max_position(2))); %use other axis max position since thats corresponding row/column
+horiz_half_max_pos2 = min(horiz_indices(horiz_indices > max_position(2)));
 
 vertical_indices = find(vertical_lineout<half_max);
-vertical_half_max_pos1 = max(vertical_indices(vertical_indices < max_position(2)));
-vertical_half_max_pos2 = min(vertical_indices(vertical_indices > max_position(2)));
+vertical_half_max_pos1 = max(vertical_indices(vertical_indices < max_position(1)));
+vertical_half_max_pos2 = min(vertical_indices(vertical_indices > max_position(1)));
 
 %Each index is a pixel representing a length
 pixel_size = 9.3; %in um
 
 %take average of two pixel distances since not perfectly symmetric
-FWHM_x = (abs(max_position(1) - horiz_half_max_pos1) + abs(max_position(1)-horiz_half_max_pos2));
-FWHM_y = (abs(max_position(2) - vertical_half_max_pos1) + abs(max_position(2)-vertical_half_max_pos2));
+FWHM_x = (abs(max_position(2) - horiz_half_max_pos1) + abs(max_position(2)-horiz_half_max_pos2));
+FWHM_y = (abs(max_position(1) - vertical_half_max_pos1) + abs(max_position(1)-vertical_half_max_pos2));
 
 FWHM_x = pixel_size * FWHM_x;
 FWHM_y = pixel_size * FWHM_y;
