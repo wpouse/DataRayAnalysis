@@ -11,7 +11,7 @@ classdef beam_profile
         beam_image %matrix of intensity values (ie raw input)
         power_intensity_ratio %for given dataray value, corresponding power ie power = intensity * power_intensity_ratio
         fluence_matrix %beam_image*power_intensity_ratio/rep_rate so still per pixel^2 not um^2
-        rep_rate
+        rep_rate %rep rate of chopper needed to get energy per pulse
     end
     methods
         function obj = beam_profile(data_ray_image, pump_power)
@@ -41,7 +41,7 @@ classdef beam_profile
                 error('Must be corresponding pump scan')
             end
             
-            fluence = obj.fluence_matrix(probe_beam.max_position(1), probe_beam.max_position(2)) * 10^8/(obj.pixel_size^2) ; %multiply by 10^8 anddivide by pixel size to get into energy/cm^2
+            fluence = obj.fluence_matrix(probe_beam.max_position(1), probe_beam.max_position(2)) * 10^8/(obj.pixel_size^2) ; %multiply by 10^8 (DOUBLE CHECK) anddivide by pixel size to get into energy/cm^2
         end
     end
 end
