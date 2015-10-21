@@ -14,9 +14,14 @@ classdef beam_profile
         rep_rate %rep rate of chopper needed to get energy per pulse
     end
     methods
-        function obj = beam_profile(data_ray_image, pump_power)
+        function obj = beam_profile(data_ray_image, pump_power, pixel_size)
             [obj.max_intensity, obj.max_position, obj.FWHM_x, obj.FWHM_y, obj.beam_image] = beam_parser(data_ray_image);
-            obj.pixel_size = 9.3; % in um
+            if nargin<3
+                pixel_size = 9.3; % in um
+            end
+            obj.pixel_size = pixel_size;
+            obj.FWHM_x = obj.FWHM_x *obj.pixel_size;
+            obj.FWHM_y = obj.FWHM_y *obj.pixel_size;
             obj.rep_rate = 991.3; %in Hz
             
             if (~exist('pump_power', 'var')) %checking if pump_power passed as argument, if not then assume its probe

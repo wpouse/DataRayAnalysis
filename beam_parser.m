@@ -40,6 +40,6 @@ pixel_size = 9.3; %in um
 FWHM_x = (abs(max_position(2) - horiz_half_max_pos1) + abs(max_position(2)-horiz_half_max_pos2));
 FWHM_y = (abs(max_position(1) - vertical_half_max_pos1) + abs(max_position(1)-vertical_half_max_pos2));
 
-FWHM_x = pixel_size * FWHM_x;
-FWHM_y = pixel_size * FWHM_y;
+%FWHM_x = pixel_size * FWHM_x; commented out to handle in beam_profile directly where pixel size is optional input
+%FWHM_y = pixel_size * FWHM_y;
 
