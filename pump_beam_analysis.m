@@ -21,7 +21,7 @@ ylabel('Fluence (mJ/um^2)');
 xlabel('Position (um)');
 
 %Define circle for logical indexing
-[rr, cc] = meshgrid(1:length(fluence_x));
+[rr, cc] = meshgrid(1:length(fluence_x), 1:length(fluence_y));
 %FWHM is in um so converting to pixel
 radius = (pump_beam.FWHM_x+pump_beam.FWHM_y)/(4*pump_beam.pixel_size); %using radius that is average of FWHM in x and y direction (divide by 4 since FWHM is a diameter)
 Circle = sqrt((rr-pump_beam.max_position(2)).^2 +(cc-pump_beam.max_position(1)).^2)<= radius;

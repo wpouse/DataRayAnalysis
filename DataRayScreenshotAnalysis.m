@@ -12,5 +12,5 @@ for i = 1:x_length
         intensity_matrix(i,j) = rgb_converter(reshape(image_matrix(i,j,:), [1, 3]));
     end
 end
-
-pump_beam_analysis(intensity_matrix, pump_power)
+imwrite(intensity_matrix, 'temp_intensity_matrix_from_screnshot.tiff');
+pump_beam_analysis('temp_intensity_matrix_from_screnshot.tiff', pump_power)

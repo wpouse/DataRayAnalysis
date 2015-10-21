@@ -32,10 +32,12 @@ classdef beam_profile
                 obj.probe = 0;
                 
                 %Summing over all intensities and equating to pump power
+                obj.beam_image = background_subtraction(obj.beam_image);%subtracting very rough background (simply average of corners)
                 total_intensity = sum(sum(obj.beam_image));
                 obj.power_intensity_ratio = obj.pump_power/total_intensity;
                 
                 obj.fluence_matrix = bsxfun(@times, obj.beam_image, (obj.power_intensity_ratio / obj.rep_rate));
+                
                 
             end
         end
