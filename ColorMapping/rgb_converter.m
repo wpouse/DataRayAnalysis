@@ -29,10 +29,11 @@ b_scale = abs(rgb_scale(:,1,3) - rgb(3));
 r_indices = find(r_scale == min(r_scale));
 g_indices = find(g_scale == min(g_scale));
 b_indices = find(b_scale == min(b_scale));
+color_distance = r_scale.^2 +g_scale.^2 + b_scale.^2;
+row_index = find(color_distance == min(color_distance));
+%row_index = intersect(b_indices, intersect(r_indices, g_indices));
 
-row_index = intersect(b_indices, intersect(r_indices, g_indices));
-
-
+%{
 i = 1;
 while isempty(row_index)
     r_indices = find(r_scale <= i);
@@ -45,6 +46,7 @@ end
 
 middle_index = round(length(row_index)/2); %take middle index since thats probably closest value
 row_index = row_index(middle_index);
+%}
 intensity_rgb = gray_scale(row_index,1,:);
 
 intensity_rgb = reshape(intensity_rgb, [1, 3]); %reshape so in [r g b] format
