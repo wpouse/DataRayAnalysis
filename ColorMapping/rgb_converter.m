@@ -14,7 +14,7 @@ gray_scale = imread('intensity_scale.bmp');
 %Section to try to make rgb converter more efficient using entire matrix at
 %once 
 %{
-dimensions = size(rgb);
+dimensions  = size(rgb);
 intensity_matrix = zeros(dimensions(1), dimensions(2));
 %}
 
@@ -22,6 +22,11 @@ intensity_matrix = zeros(dimensions(1), dimensions(2));
 %%
 %Finding R, G, B rows with rgb we want then calculating intersection to get
 %row
+rgb_scale = int32(rgb_scale);
+gray_scale = int32(gray_scale); %need to convert to int32 (int8 is -127 to 127) to allow for negative numbers. Could do int16
+
+rgb = int32(rgb);
+
 r_scale = abs(rgb_scale(:,1,1) - rgb(1));
 g_scale = abs(rgb_scale(:,1,2) - rgb(2));
 b_scale = abs(rgb_scale(:,1,3) - rgb(3));
@@ -31,6 +36,8 @@ g_indices = find(g_scale == min(g_scale));
 b_indices = find(b_scale == min(b_scale));
 color_distance = r_scale.^2 +g_scale.^2 + b_scale.^2;
 row_index = find(color_distance == min(color_distance));
+row_index = row_index(1);
+
 %row_index = intersect(b_indices, intersect(r_indices, g_indices));
 
 %{
