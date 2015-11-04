@@ -1,4 +1,4 @@
-function DataRayScreenshotAnalysis(screenshot, pump_power, FWMH_x_screenshot)
+function DataRayScreenshotAnalysis(screenshot, pump_power, FWMH_x_screenshot, pixel_sizein)
 %assume screenshot is cropped to only be image region, FWHM_x screenshot is
 %FWHM given in screenshot and used to calibrate pixel size
 image_matrix = imread(screenshot);
@@ -22,6 +22,7 @@ imwrite(intensity_matrix, 'temp_intensity_matrix_from_screenshot.tiff');
 
 [max_intensity, max_position, FWHM_x, FWHM_y, beam_image] = beam_parser('temp_intensity_matrix_from_screenshot.tiff');
 
-pixel_size = FWMH_x_screenshot/FWHM_x; 
-
+pixel_size = FWMH_x_screenshot/FWHM_x;
+pixel_size = pixel_sizein;
+FWHM_x_calc = pixel_size*FWHM_x
 pump_beam_analysis('temp_intensity_matrix_from_screenshot.tiff', pump_power, pixel_size)

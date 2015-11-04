@@ -9,7 +9,8 @@ max_position = zeros(1,2);
 
 %Only takes first max intensity pixel when multiple pixels have same max intensity, if beam center not very close to max
 %could be issue
-max_position(1) = max_position_x(1); max_position(2) = max_position_y(1);
+max_position(1) = max_position_x(1);
+max_position(2) = max_position_y(1);
 
 half_max = max_intensity/2;
 
@@ -25,7 +26,7 @@ vertical_lineout = beam_image(:,max_position(2));
 %6 4 2] d=find(c<5.5) d(d<6) max(d(d<6)) outputs of these shows process of whats
 %happening.
 
-horiz_indices = find(horiz_lineout<half_max);
+horiz_indices = find(horiz_lineout<=half_max);
 horiz_half_max_pos1 = max(horiz_indices(horiz_indices < max_position(2))); %use other axis max position since thats corresponding row/column
 horiz_half_max_pos2 = min(horiz_indices(horiz_indices > max_position(2)));
 
@@ -33,7 +34,8 @@ vertical_indices = find(vertical_lineout<half_max);
 vertical_half_max_pos1 = max(vertical_indices(vertical_indices < max_position(1)));
 vertical_half_max_pos2 = min(vertical_indices(vertical_indices > max_position(1)));
 
-%Each index is a pixel representing a length
+%Each index is a pixel representing a length, not used since defined in
+%analysis portion
 pixel_size = 9.3; %in um
 
 %take average of two pixel distances since not perfectly symmetric
