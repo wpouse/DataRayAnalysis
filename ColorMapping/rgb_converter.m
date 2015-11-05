@@ -36,7 +36,16 @@ g_indices = find(g_scale == min(g_scale));
 b_indices = find(b_scale == min(b_scale));
 color_distance = r_scale.^2 +g_scale.^2 + b_scale.^2;
 row_index = find(color_distance == min(color_distance));
-row_index = row_index(1);
+
+
+%selecting 1st elemenet probably introduces systematic error towards higher
+%powers. Adding section for randomized selection of colors with same
+%'distances'
+
+%row_index = row_index(1); !!uncomment this line for always selecting
+%first, and comment next two lines to remove random selection
+randomized_index = randi(length(row_index));
+row_index = row_index(randomized_index);
 
 %row_index = intersect(b_indices, intersect(r_indices, g_indices));
 

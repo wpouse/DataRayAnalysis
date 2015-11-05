@@ -22,7 +22,10 @@ imwrite(intensity_matrix, 'temp_intensity_matrix_from_screenshot.tiff');
 
 [max_intensity, max_position, FWHM_x, FWHM_y, beam_image] = beam_parser('temp_intensity_matrix_from_screenshot.tiff');
 
+%This section is for whether we want to define by FWHMx or pixel size. If
+%FWHMx comment out last two lines and pixel size input of function.
 pixel_size = FWMH_x_screenshot/FWHM_x;
 pixel_size = pixel_sizein;
 FWHM_x_calc = pixel_size*FWHM_x
+
 pump_beam_analysis('temp_intensity_matrix_from_screenshot.tiff', pump_power, pixel_size)
