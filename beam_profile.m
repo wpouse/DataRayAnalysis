@@ -48,7 +48,7 @@ classdef beam_profile
                 error('Must be corresponding pump scan')
             end
             
-            fluence = obj.fluence_matrix(probe_beam.max_position(1), probe_beam.max_position(2)) * 10^8/(obj.pixel_size^2) ; %multiply by 10^8 (DOUBLE CHECK) anddivide by pixel size to get into energy/cm^2
+            fluence = obj.fluence_matrix(probe_beam.max_position(1), probe_beam.max_position(2)) * 10^8/(obj.pixel_size^2) ; %multiply by 10^8 (to go from um^-2 to cm^-2 DOUBLE CHECK) anddivide by pixel size to get into energy/cm^2
         end
     end
 end
