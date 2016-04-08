@@ -1,6 +1,6 @@
 function pump_beam = pump_beam_analysis(pump_beam_image, power, pixel_size)
 if nargin<3
-    pixel_size = 9.3; %setting default pixel size to 9.3 um
+    pixel_size = 9.3; %setting default pixel size to 9.3 um, for higher resolution typically 4.65
 end
 
 normalization = 0; %0 for false, 1 for true
